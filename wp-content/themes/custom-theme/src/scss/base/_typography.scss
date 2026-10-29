@@ -1,0 +1,67 @@
+@use "sass:list";
+@use "variables";
+@use "media";
+
+html {
+  font-size: variables.$rem-base;
+}
+
+body {
+  color: variables.$body-color;
+  background: variables.$body-bg;
+  font-family: variables.$font-family-base;
+  font-size: variables.$mobile-font-size;
+  font-weight: variables.$font-weight-normal;
+  line-height: variables.$line-height-base;
+
+  @include media.media-up("desktop") {
+    font-size: variables.$base-font-size;
+  }
+}
+
+a {
+  color: variables.$link-color;
+  text-decoration: variables.$link-decoration;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: variables.$link-hover-color;
+    text-decoration: variables.$link-hover-decoration;
+  }
+}
+
+p, ul, ol, dl, blockquote {
+  margin: 0 0 variables.$paragraph-margin-bottom;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  margin: 0 0 variables.$headings-margin-bottom;
+  color: variables.$headings-color;
+  font-family: variables.$headings-font-family;
+  font-weight: variables.$headings-font-weight;
+  line-height: variables.$headings-line-height;
+  overflow-wrap: break-word;
+}
+
+$heading-sizes: (
+  h1: (variables.$h1-font-size-mobile, variables.$h1-font-size),
+  h2: (variables.$h2-font-size-mobile, variables.$h2-font-size),
+  h3: (variables.$h3-font-size-mobile, variables.$h3-font-size),
+  h4: (variables.$h4-font-size-mobile, variables.$h4-font-size),
+  h5: (variables.$h5-font-size-mobile, variables.$h5-font-size),
+  h6: (variables.$h6-font-size-mobile, variables.$h6-font-size)
+);
+
+@each $heading, $sizes in $heading-sizes {
+  #{$heading}, .#{$heading} {
+    font-size: list.nth($sizes, 1);
+
+    @include media.media-up("desktop") {
+      font-size: list.nth($sizes, 2);
+    }
+  }
+}

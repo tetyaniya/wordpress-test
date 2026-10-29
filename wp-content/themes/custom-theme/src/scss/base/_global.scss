@@ -1,0 +1,25 @@
+@use "variables";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.container {
+  width: 100%;
+  max-width: variables.$container-max-width;
+  padding-inline: variables.$gutter;
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 3rem;
+}

@@ -1,0 +1,43 @@
+@use "../base/variables";
+
+.btn, .btn-base, .btn-outline, .wpcf7-submit,
+input[type="submit"], button[type="submit"], .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: variables.$btn-min-width;
+  min-height: 44px;
+  max-width: 100%;
+  padding: variables.$btn-padding;
+  border: variables.$btn-border;
+  border-radius: variables.$btn-border-radius;
+  background: variables.$btn-background;
+  color: variables.$btn-color;
+  font-family: variables.$btn-font-family;
+  font-size: variables.$btn-font-size;
+  font-weight: variables.$btn-font-weight;
+  line-height: variables.$btn-line-height;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+
+  &:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: variables.$btn-hover-background;
+    border-color: variables.$btn-hover-background;
+    color: variables.$btn-hover-color;
+    text-decoration: none;
+  }
+
+  &:disabled, &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: variables.$body-color;
+  border-color: currentColor;
+}

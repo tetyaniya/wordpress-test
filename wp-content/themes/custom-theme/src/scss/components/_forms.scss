@@ -1,0 +1,88 @@
+@use "../base/variables";
+@use "../base/media";
+
+input, select, textarea, button {
+  font: inherit;
+}
+
+input:not([type]),
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="url"], input[type="password"], input[type="search"],
+input[type="number"], input[type="date"], select, textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: variables.$form-input-height;
+  padding: variables.$form-input-padding;
+  border: 1px solid variables.$gray-600;
+  border-radius: variables.$form-input-border-radius;
+  background: variables.$form-background-color;
+  color: variables.$form-color;
+  font-family: variables.$form-font-family;
+  font-size: variables.$form-font-size;
+
+  &::placeholder {
+    color: variables.$placeholder-color;
+    font-size: variables.$placeholder-font-size;
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    border-color: variables.$link-color;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid="true"], &.wpcf7-not-valid {
+    border-color: variables.$red;
+  }
+}
+
+textarea {
+  min-height: variables.$textarea-height;
+  padding: variables.$textarea-padding;
+  border-radius: variables.$textarea-border-radius;
+  resize: vertical;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  accent-color: variables.$link-color;
+}
+
+fieldset {
+  min-width: 0;
+}
+
+.form-field, .wpcf7-form-control-wrap {
+  display: block;
+  min-width: 0;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+
+  @include media.media-up("tablet") {
+    gap: 1.5rem;
+  }
+}
+
+.wpcf7-not-valid-tip {
+  display: block;
+  margin-top: 0.25rem;
+  color: variables.$red;
+  font-size: 0.875rem;
+}
+
+.wpcf7-list-item {
+  margin: 0 1rem 0 0;
+}

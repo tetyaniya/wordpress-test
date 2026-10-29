@@ -1,0 +1,33 @@
+@use "sass:map";
+@use "variables";
+
+@function breakpoint-up($name) {
+  @if not map.has-key(variables.$breakpoints, $name) {
+    @error "Unknown breakpoint: #{$name}. Check base/_variables.scss.";
+  }
+  @return map.get(variables.$breakpoints, $name);
+}
+
+// Mobile-first: base styles target phones; add larger screens with media-up.
+@mixin media-up($name) {
+  @media (min-width: breakpoint-up($name)) {
+    @content;
+  }
+}
+
+@mixin media-down($name) {
+  @media (max-width: (breakpoint-up($name) - 0.02px)) {
+    @content;
+  }
+}
+
+@mixin media-between($min, $max) {
+  $from: breakpoint-up($min);
+  $to: breakpoint-up($max);
+  @if $from >= $to {
+    @error "media-between requires ascending breakpoints.";
+  }
+  @media (min-width: $from) and (max-width: ($to - 0.02px)) {
+    @content;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "src/ts/main.ts": {
+    "file": "assets/main-DcCvDES1.js",
+    "name": "main",
+    "src": "src/ts/main.ts",
+    "isEntry": true,
+    "css": [
+      "assets/main-CS6gt-yJ.css"
+    ]
+  }
+}

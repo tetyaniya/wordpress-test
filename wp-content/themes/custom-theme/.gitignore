@@ -1,0 +1,7 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+.vite-dev.json
+*.tsbuildinfo
+# Keep dist/ in version control so the theme works without Node.js on the server.

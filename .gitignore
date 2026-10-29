@@ -1,6 +1,11 @@
 # Dependencies
 node_modules/
 
+# Local agent and AWS configuration
+/.agents/
+/.aws/
+/.codex/
+
 # WordPress Configuration File
 wp-config.php
 wp-config-ddev.php

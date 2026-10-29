@@ -1,0 +1,160 @@
+@use "sass:color";
+@use "sass:map";
+
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+
+$breakpoints: (
+  "phone-s": 375px,
+  "phone": 520px,
+  "tablet": 768px,
+  "desktop": 1024px,
+  "laptop": 1280px,
+  "widescreen": 1366px,
+  "widescreen-lg": 1440px
+);
+
+// Color system
+
+$white: #fff;
+$black: #000;
+$dark-green-900: #041a0c;
+$dark-green-800: #093518;
+$dark-green-700: #24683a;
+$dark-green-600: #4c9464;
+$dark-green-500: #78b68d;
+$dark-green-400: #a0d1b0;
+$green-900: #0e8730;
+$green-500: #38dd67;
+$green-400: #50e97c;
+$green-100: #f5fff8;
+$lime-ivory: #f8fee3;
+$warm-ivory: #fffaf3;
+$sage-mist: #e7ecd6;
+$gray: #a3aab6;
+$gray-200: #9ea2a9;
+$gray-600: #585d64;
+$red: #c4281d;
+$pink: #fdf3f2;
+
+// body
+// settings for the `<body>` element.
+
+$body-bg: $warm-ivory;
+$body-color: $dark-green-900;
+$link-color: $dark-green-600;
+$link-decoration: underline;
+$link-hover-color: color.adjust($dark-green-600, $lightness: -5%);
+$link-hover-decoration: none;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// stylelint-disable value-keyword-case
+$font-family-sans-serif:
+  "Open Sans", "Helvetica Neue", Arial, sans-serif;
+$font-family-sans-serif-secondary: "Montserrat", Arial, sans-serif;
+$font-family-base: $font-family-sans-serif;
+// Relative to this SCSS directory; used when local fonts are added.
+$base-font-path: "../../fonts/";
+
+// container max width, used for .container element
+$gutter: 24px;
+$container-content-width: 1280px;
+$container-max-width: $container-content-width + $gutter * 2;
+
+// Variables for @include fluid-type mixin;
+// This mixin allow fonts to grow from $min viewport width to $max viewport width between sizes that are provided
+//
+$fluid-min: map.get($breakpoints, "phone-s");
+$fluid-max: map.get($breakpoints, "widescreen-lg");
+$font-weight-thin: 100;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-heavy: 900;
+$base-font-size: 16px;
+$mobile-font-size: 16px;
+$line-height-base: 1.4;
+$rem-base: 16px;
+
+// Headers
+$headings: (
+  "h1, .h1",
+  "h2, .h2",
+  "h3, .h3",
+  "h4, .h4",
+  "h5, .h5",
+  "h6, .h6",
+  ".display-1",
+  ".display-2",
+  ".display-3",
+  ".display-4"
+);
+$h1-font-size: 64px;
+$h2-font-size: 48px;
+$h3-font-size: 40px;
+$h4-font-size: 23px;
+$h5-font-size: 18px;
+$h6-font-size: 16px;
+$h1-font-size-mobile: 40px;
+$h2-font-size-mobile: 32px;
+$h3-font-size-mobile: 23px;
+$h4-font-size-mobile: 18px;
+$h5-font-size-mobile: 17px;
+$h6-font-size-mobile: 16px;
+$display-1: 50px;
+$display-2: 40px;
+$display-3: 30px;
+$display-4: 20px;
+$headings-margin-bottom: 24px;
+$headings-font-weight: $font-weight-semibold;
+$headings-line-height: 1.1;
+$headings-color: inherit;
+$headings-font-family: $font-family-sans-serif-secondary;
+
+// Paragraphs
+
+$paragraph-margin-bottom: 24px;
+
+// Buttons
+
+$btn-font-size: $base-font-size;
+$btn-font-weight: $font-weight-medium;
+$btn-font-family: $font-family-base;
+$btn-line-height: $line-height-base;
+$btn-border-radius: 50px;
+$btn-padding: 12px 24px;
+$btn-background: $green-400;
+$btn-color: $dark-green-900;
+$btn-border: 1px solid $btn-background;
+$btn-min-width: 100px;
+
+// Forms
+$form-font-family: inherit;
+$form-font-size: $base-font-size;
+$form-color: $body-color;
+$form-input-padding: 5px 16px;
+$form-input-height: 48px;
+$form-background-color: transparent;
+$form-input-border-radius: 8px;
+$placeholder-color: $gray-200;
+$placeholder-font-size: 14px;
+$textarea-height: 140px;
+$textarea-padding: 14px 12px;
+$textarea-border-radius: $form-input-border-radius;
+
+// Base transition function
+$animation-speed: 0.3s;
+$animation-easing-base: ease-in-out;
+
+// Shared interactive states.
+$btn-hover-background: $dark-green-800;
+$btn-hover-color: $white;

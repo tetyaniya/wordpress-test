@@ -20,7 +20,7 @@ if ( getenv( 'IS_DDEV_PROJECT' ) == 'true' ) {
 	defined( 'DB_HOST' ) || define( 'DB_HOST', 'ddev-wordpress-test-db' );
 
 	/** WP_HOME URL */
-	defined( 'WP_HOME' ) || define( 'WP_HOME', 'https://wordpress-test.ddev.site:33001' );
+	defined( 'WP_HOME' ) || define( 'WP_HOME', 'https://wordpress-test.ddev.site' );
 
 	/** WP_SITEURL location */
 	defined( 'WP_SITEURL' ) || define( 'WP_SITEURL', WP_HOME . '/' );
