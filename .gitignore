@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# WordPress Configuration File
+wp-config.php
+wp-config.ddev.php
+##
+/.htaccess
+/license.txt
+/readme.html
+/sitemap.xml
+/sitemap.xml.gz
+# Ignore everything in the "wp-content" directory, except the "plugins"
+# and "themes" directories.
+wp-content/*
+!wp-content/plugins/
+!wp-content/themes/
