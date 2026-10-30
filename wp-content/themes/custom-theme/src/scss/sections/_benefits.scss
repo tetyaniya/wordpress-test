@@ -1,1 +1,24 @@
-// Add benefits section styles here.
+.benefits-section {
+  padding-block: 64px;
+
+  .is-layout-grid {
+    gap: 24px;
+  }
+
+  .is-layout-grid > .wp-block-group {
+    padding: 24px;
+    background: #f7f9fc;
+    border-radius: 12px;
+
+    > .wp-block-group__inner-container {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
+      > p {
+        margin-top: auto;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

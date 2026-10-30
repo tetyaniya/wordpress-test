@@ -1,5 +1,13 @@
 @use "variables";
 
+html {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
 %unstyled-list {
   margin: 0;
   padding: 0;
