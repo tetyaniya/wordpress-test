@@ -1,1 +1,91 @@
-// Add hero section styles here.
+@use "../base/variables";
+
+.hero {
+  &__gallery {
+    min-width: 0;
+    margin-top: 24px;
+    --swiper-theme-color: #{variables.$blue-700};
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  &__slide {
+    min-width: 0;
+    height: auto;
+  }
+
+  // Keep every image available when JavaScript is unavailable.
+  &__gallery:not(.swiper-initialized) .swiper-wrapper {
+    display: grid;
+    gap: 16px;
+  }
+
+  &__controls {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  &__gallery.swiper-initialized &__controls {
+    display: flex;
+  }
+
+  &__previous,
+  &__next,
+  &__pagination .swiper-pagination-bullet {
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid variables.$blue-600;
+    border-radius: 6px;
+    background: variables.$white;
+    color: variables.$blue-700;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid variables.$navy-900;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+
+    .swiper-pagination-bullet {
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+
+      &::before {
+        width: 10px;
+        height: 10px;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        content: "";
+      }
+    }
+
+    .swiper-pagination-bullet-active::before {
+      background: currentColor;
+    }
+  }
+}
