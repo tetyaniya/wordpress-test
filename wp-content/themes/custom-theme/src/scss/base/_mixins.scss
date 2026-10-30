@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "variables";
+
+// Usage: @include mixins.animate(color background-color);
+@mixin animate(
+  $properties,
+  $duration: variables.$animation-speed,
+  $easing: variables.$animation-easing-base
+) {
+  $transitions: ();
+
+  @each $property in $properties {
+    $transitions: list.append($transitions, $property $duration $easing, comma);
+  }
+
+  transition: $transitions;
+}

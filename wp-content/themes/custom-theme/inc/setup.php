@@ -24,3 +24,7 @@ function ct_setup(): void {
 	);
 }
 add_action( 'after_setup_theme', 'ct_setup' );
+
+
+// Disable automatic paragraph insertion in Contact Form 7.
+add_filter( 'wpcf7_autop_or_not', '__return_false' );

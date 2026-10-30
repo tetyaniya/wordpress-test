@@ -7,7 +7,7 @@
 
 get_header();
 ?>
-<main id="main" class="container section">
+<div class="section">
 	<?php if ( have_posts() ) : ?>
 		<?php while ( have_posts() ) : ?>
 			<?php the_post(); ?>
@@ -25,5 +25,5 @@ get_header();
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content-none' ); ?>
 	<?php endif; ?>
-</main>
+</div>
 <?php get_footer(); ?>

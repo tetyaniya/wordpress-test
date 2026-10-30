@@ -1,5 +1,11 @@
 @use "variables";
 
+%unstyled-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -21,5 +27,5 @@ img, svg, video {
 }
 
 .section {
-  padding-block: 3rem;
+  padding-block: 48px;
 }

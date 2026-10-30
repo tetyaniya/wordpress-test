@@ -1,1 +1,89 @@
-// Add faq section styles here.
+@use "../base/variables";
+@use "../base/mixins";
+@use "../base/media";
+
+.faq {
+  &__list {
+    border-bottom: 1px solid rgba(variables.$blue-600, 0.2);
+  }
+
+  &__item.ac {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid rgba(variables.$blue-600, 0.2);
+    background: transparent;
+
+    &.is-active {
+      .faq__trigger,
+      .faq__icon {
+        color: variables.$blue-700;
+      }
+
+      .faq__icon {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .ac .ac-trigger {
+    @include mixins.animate(color);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 0;
+    color: variables.$navy-900;
+    font-family: variables.$font-family-sans-serif-secondary;
+    font-size: 18px;
+    font-weight: variables.$font-weight-semibold;
+    line-height: 1.3;
+
+    &:hover,
+    &:focus-visible {
+      color: variables.$blue-700;
+
+      .faq__icon {
+        color: variables.$blue-700;
+      }
+    }
+
+    @include media.media-down("desktop") {
+      padding: 24px 0 16px;
+      font-size: 16px;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &__icon {
+    @include mixins.animate(color transform);
+
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    color: variables.$navy-700;
+
+    svg {
+      display: block;
+    }
+  }
+
+  .ac .ac-panel .ac-text {
+    margin: 0;
+    padding: 0 45px 24px 0;
+    color: variables.$navy-700;
+    font: 16px / 1.4 variables.$font-family-sans-serif;
+    overflow-wrap: anywhere;
+
+    @include media.media-down("desktop") {
+      padding-right: 27px;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

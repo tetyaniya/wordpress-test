@@ -14,7 +14,7 @@ input[type="number"], input[type="date"], select, textarea {
   min-width: 0;
   min-height: variables.$form-input-height;
   padding: variables.$form-input-padding;
-  border: 1px solid variables.$gray-600;
+  border: 1px solid variables.$slate-500;
   border-radius: variables.$form-input-border-radius;
   background: variables.$form-background-color;
   color: variables.$form-color;
@@ -37,7 +37,7 @@ input[type="number"], input[type="date"], select, textarea {
   }
 
   &[aria-invalid="true"], &.wpcf7-not-valid {
-    border-color: variables.$red;
+    border-color: variables.$error-color;
   }
 }
 
@@ -63,26 +63,26 @@ fieldset {
 
 .form-label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .contact-form-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 1rem;
+  gap: 16px;
 
   @include media.media-up("tablet") {
-    gap: 1.5rem;
+    gap: 24px;
   }
 }
 
 .wpcf7-not-valid-tip {
   display: block;
-  margin-top: 0.25rem;
-  color: variables.$red;
-  font-size: 0.875rem;
+  margin-top: 4px;
+  color: variables.$error-color;
+  font-size: 14px;
 }
 
 .wpcf7-list-item {
-  margin: 0 1rem 0 0;
+  margin: 0 16px 0 0;
 }

@@ -1,18 +1,259 @@
 @use "../base/media";
+@use "../base/variables";
+@use "../base/mixins";
+@use "../base/global";
+
+body.ct-menu-open {
+  overflow: hidden;
+}
 
 .site-header {
-  padding-block: 1rem;
+  position: relative;
+  z-index: 10;
+  padding-block: 12px;
+  background: variables.$body-bg;
+  border-bottom: 1px solid variables.$blue-100;
+
+  @include media.media-up("desktop") {
+    padding-block: 20px;
+  }
 
   > .container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
 
-    @include media.media-up("tablet") {
+    @include media.media-up("desktop") {
+      flex-wrap: nowrap;
+      column-gap: 64px;
+    }
+  }
+
+  &__brand {
+    flex: 1;
+    min-width: 0;
+    max-width: 240px;
+
+    @include media.media-up("desktop") {
+      flex: 0 1 240px;
+    }
+
+    a {
+      display: inline-block;
+      vertical-align: middle;
+      color: variables.$body-color;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: auto;
+      max-height: 56px;
+    }
+  }
+
+  &__title {
+    font-family: variables.$headings-font-family;
+    font-size: 20px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: variables.$navy-700;
+    cursor: pointer;
+
+    &[hidden] {
+      display: none;
+    }
+
+    @include media.media-up("desktop") {
+      display: none;
+    }
+
+    .ham {
+      @include mixins.animate(transform);
+
+      display: block;
+      width: 48px;
+      height: 48px;
+    }
+
+    .line {
+      @include mixins.animate(stroke-dasharray stroke-dashoffset);
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 5.5;
+      stroke-linecap: round;
+    }
+
+    .top,
+    .bottom {
+      stroke-dasharray: 40 121;
+    }
+
+    &[aria-expanded="true"] {
+      .hamRotate {
+        transform: rotate(45deg);
+      }
+
+      .top,
+      .bottom {
+        stroke-dashoffset: -68px;
+      }
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    min-width: 0;
+    padding-block: 12px;
+
+    @include media.media-up("desktop") {
+      flex: 1;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: 64px;
+      width: auto;
+      padding: 0;
+    }
+  }
+
+  &__nav {
+    @include media.media-up("desktop") {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__menu {
+    @extend %unstyled-list;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include media.media-up("desktop") {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 4px 24px;
+    }
+
+    a {
+      display: block;
+      padding: 12px 0;
+      color: variables.$body-color;
+      font-size: 22px;
+      font-weight: variables.$font-weight-medium;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+
+      @include media.media-up("desktop") {
+        font-size: 18px;
+      }
+    }
+
+    @include media.media-up("desktop") {
+      > li {
+        > a {
+          position: relative;
+
+          &::before {
+            @include mixins.animate(width);
+
+            content: "";
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: currentColor;
+          }
+
+          &:hover::before,
+          &:focus-visible::before {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  &__phone {
+    position: relative;
+    align-self: flex-start;
+    padding-block: 10px;
+    color: variables.$navy-700;
+    font-size: 18px;
+    font-weight: variables.$font-weight-semibold;
+    text-decoration: none;
+
+    @include media.media-up("desktop") {
+      flex-shrink: 0;
+      align-self: center;
+      white-space: nowrap;
+    }
+
+    &::before {
+      @include mixins.animate(width);
+
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+    }
+
+    &:hover::before,
+    &:focus-visible::before {
+      width: 100%;
+    }
+  }
+
+  @include media.media-down("desktop") {
+    &.is-menu-ready {
+      .site-header__panel {
+        @include mixins.animate(opacity visibility);
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: calc(100dvh - 100%);
+        padding: 24px variables.$gutter;
+        background: variables.$body-bg;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      &.is-menu-open .site-header__panel {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
     }
   }
 }

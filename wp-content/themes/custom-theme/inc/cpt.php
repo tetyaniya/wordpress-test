@@ -1,6 +1,6 @@
 <?php
 /**
- * Content types for homepage sections. No public archives or rewrite rules.
+ * Register Custom Post Types and Taxonomies.
  *
  * @package CustomTheme
  */
@@ -49,3 +49,9 @@ function ct_register_post_types(): void {
 	);
 }
 add_action( 'init', 'ct_register_post_types' );
+
+/** Use the classic editor for FAQ answers. */
+function ct_faq_use_block_editor( bool $use_block_editor, string $post_type ): bool {
+	return 'faq' === $post_type ? false : $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'ct_faq_use_block_editor', 10, 2 );

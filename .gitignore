@@ -2,9 +2,11 @@
 node_modules/
 
 # Local agent and AWS configuration
+/AGENTS.md
 /.agents/
 /.aws/
 /.codex/
+/.vscode/
 
 # WordPress Configuration File
 wp-config.php

@@ -7,11 +7,11 @@
 
 get_header();
 ?>
-<main id="main" class="container section">
+<div class="section">
 	<?php while ( have_posts() ) : ?>
 		<?php the_post(); ?>
 		<?php get_template_part( 'template-parts/content', 'singular' ); ?>
 		<?php the_post_navigation(); ?>
 	<?php endwhile; ?>
-</main>
+</div>
 <?php get_footer(); ?>
