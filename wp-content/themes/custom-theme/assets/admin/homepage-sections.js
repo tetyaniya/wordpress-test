@@ -46,67 +46,71 @@ jQuery(function ($) {
 			}
 			status.text(labels.copied);
 		} catch (error) {
-			status.text(labels.copyFailed);
+			status.text(labels.copyFailed.replace('%s', this.dataset.shortcode));
 		}
 	});
 
-	const gallery = box.find('.ct-gallery-items');
-	const status = box.find('.ct-gallery-status');
-	function updateOrder() {
-		const items = gallery.children();
-		items.find('.ct-image-up').prop('disabled', false);
-		items.find('.ct-image-down').prop('disabled', false);
-		items.first().find('.ct-image-up').prop('disabled', true);
-		items.last().find('.ct-image-down').prop('disabled', true);
-	}
-	gallery.sortable({
-		items: '> li',
-		cancel: 'button, input',
-		tolerance: 'pointer',
-		update: function () { updateOrder(); gallery.find('input').first().trigger('change'); }
-	});
-	gallery.on('click', 'button', function () {
-		const item = $(this).closest('li');
-		if ($(this).hasClass('ct-image-remove')) {
-			const focusTarget = item.next().find('.ct-image-remove')[0] || item.prev().find('.ct-image-remove')[0] || box.find('.ct-gallery-select')[0];
-			item.remove();
-			focusTarget.focus();
+	box.find('.ct-gallery-items').each(function () {
+		const controls = $(this).parent();
+		const gallery = $(this);
+		const fieldName = controls.attr('data-gallery-name') || 'ct_homepage_sections[hero][gallery][]';
+		const status = controls.find('.ct-gallery-status');
+		function updateOrder() {
+			const items = gallery.children();
+			items.find('.ct-image-up').prop('disabled', false);
+			items.find('.ct-image-down').prop('disabled', false);
+			items.first().find('.ct-image-up').prop('disabled', true);
+			items.last().find('.ct-image-down').prop('disabled', true);
 		}
-		if ($(this).hasClass('ct-image-up')) item.insertBefore(item.prev());
-		if ($(this).hasClass('ct-image-down')) item.insertAfter(item.next());
-		updateOrder();
-		status.text('');
-		box.find('.ct-gallery-select').trigger('change');
-	});
+		gallery.sortable({
+			items: '> li',
+			cancel: 'button, input',
+			tolerance: 'pointer',
+			update: function () { updateOrder(); gallery.find('input').first().trigger('change'); }
+		});
+		gallery.on('click', 'button', function () {
+			const item = $(this).closest('li');
+			if ($(this).hasClass('ct-image-remove')) {
+				const focusTarget = item.next().find('.ct-image-remove')[0] || item.prev().find('.ct-image-remove')[0] || controls.find('.ct-gallery-select')[0];
+				item.remove();
+				focusTarget.focus();
+			}
+			if ($(this).hasClass('ct-image-up')) item.insertBefore(item.prev());
+			if ($(this).hasClass('ct-image-down')) item.insertAfter(item.next());
+			updateOrder();
+			status.text('');
+			controls.find('.ct-gallery-select').trigger('change');
+		});
 
-	let frame;
-	box.on('click', '.ct-gallery-select', function () {
-		if (!frame) {
-			frame = wp.media({ title: labels.select, button: { text: labels.use }, library: { type: 'image' }, multiple: true });
-			frame.on('open', function () {
-				const selection = frame.state().get('selection');
-				selection.reset();
-				gallery.children().each(function () { selection.add(wp.media.attachment(Number(this.dataset.id))); });
-			});
-			frame.on('select', function () {
-				const images = frame.state().get('selection').toJSON();
-				status.text('');
-				gallery.empty();
-				images.forEach(function (image) {
-					const item = $('<li>', { class: 'ct-gallery-item', 'data-id': image.id });
-					$('<img>', { src: image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : image.url, alt: image.alt || '' }).appendTo(item);
-					$('<input>', { type: 'hidden', name: 'ct_homepage_sections[hero][gallery][]', value: image.id }).appendTo(item);
-					const actions = $('<div>', { class: 'ct-gallery-actions' }).appendTo(item);
-					$('<button>', { type: 'button', class: 'button ct-image-up', 'aria-label': labels.earlier, text: '←' }).appendTo(actions);
-					$('<button>', { type: 'button', class: 'button ct-image-down', 'aria-label': labels.later, text: '→' }).appendTo(actions);
-					$('<button>', { type: 'button', class: 'button ct-image-remove', text: labels.remove }).appendTo(actions);
-					gallery.append(item);
+		let frame;
+		controls.on('click', '.ct-gallery-select', function () {
+			if (!frame) {
+				frame = wp.media({ title: controls.attr('data-gallery-title') || labels.select, button: { text: labels.use }, library: { type: 'image' }, multiple: true });
+				frame.on('open', function () {
+					const selection = frame.state().get('selection');
+					selection.reset();
+					gallery.children().each(function () { selection.add(wp.media.attachment(Number(this.dataset.id))); });
 				});
-				updateOrder();
-				box.find('.ct-gallery-select').trigger('change');
-			});
-		}
-		frame.open();
+				frame.on('select', function () {
+					const images = frame.state().get('selection').toJSON();
+					status.text('');
+					gallery.empty();
+					images.forEach(function (image) {
+						const item = $('<li>', { class: 'ct-gallery-item', 'data-id': image.id });
+						$('<img>', { src: image.sizes && image.sizes.thumbnail ? image.sizes.thumbnail.url : image.url, alt: image.alt || '' }).appendTo(item);
+						$('<input>', { type: 'hidden', name: fieldName, value: image.id }).appendTo(item);
+						const actions = $('<div>', { class: 'ct-gallery-actions' }).appendTo(item);
+						$('<button>', { type: 'button', class: 'button ct-image-up', 'aria-label': labels.earlier, text: '←' }).appendTo(actions);
+						$('<button>', { type: 'button', class: 'button ct-image-down', 'aria-label': labels.later, text: '→' }).appendTo(actions);
+						$('<button>', { type: 'button', class: 'button ct-image-remove', text: labels.remove }).appendTo(actions);
+						gallery.append(item);
+					});
+					updateOrder();
+					controls.find('.ct-gallery-select').trigger('change');
+				});
+			}
+			frame.open();
+		});
+		updateOrder();
 	});
-	updateOrder();
 });

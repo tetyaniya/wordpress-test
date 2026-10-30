@@ -1,1 +1,172 @@
-// Add about section styles here.
+@use "../base/variables";
+@use "../base/media";
+
+.about-section {
+  &__inner {
+    display: grid;
+    align-items: center;
+    gap: 32px;
+
+    &--columns {
+      @include media.media-up("desktop") {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 48px;
+      }
+    }
+  }
+
+  &__content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  & &__gallery {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+
+    > .swiper-wrapper {
+      grid-area: 1 / 1;
+      min-width: 0;
+    }
+  }
+
+  &__slide {
+    aspect-ratio: 3 / 3.6;
+    height: auto;
+    overflow: hidden;
+    border-radius: 8px;
+
+    @include media.media-down("desktop") {
+      aspect-ratio: 4 / 3;
+    }
+    @include media.media-down("tablet") {
+      aspect-ratio: 4 / 3.7;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__gallery:not(.swiper-initialized) {
+    .swiper-wrapper {
+      display: block;
+    }
+
+    .about-section__slide:not(:first-child) {
+      display: none;
+    }
+  }
+
+  &__controls {
+    display: none;
+  }
+
+  &__gallery.swiper-initialized &__controls {
+    display: contents;
+  }
+
+  &__previous,
+  &__next,
+  &__pagination .swiper-pagination-bullet {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid variables.$blue-600;
+    border-radius: 50%;
+    background: variables.$white;
+    color: variables.$blue-600;
+    cursor: pointer;
+
+    &:hover {
+      background: variables.$blue-100;
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$blue-700;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &__previous,
+  &__next {
+    grid-area: 1 / 1;
+    align-self: center;
+    z-index: 2;
+    margin-inline: 12px;
+    background: rgba(variables.$white, 0.6);
+
+    &:hover {
+      background: rgba(variables.$blue-100, 0.6);
+    }
+
+    &:disabled {
+      background: rgba(variables.$white, 0.2);
+      opacity: 1;
+    }
+
+    span {
+      width: 12px;
+      height: 12px;
+      border-top: 3px solid currentColor;
+      border-right: 3px solid currentColor;
+    }
+  }
+
+  &__previous {
+    justify-self: start;
+
+    span {
+      transform: translateX(2px) rotate(-135deg);
+    }
+  }
+
+  &__next {
+    justify-self: end;
+
+    span {
+      transform: translateX(-2px) rotate(45deg);
+    }
+  }
+
+  &__pagination {
+    grid-area: 2 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: 0;
+    padding: 12px 4px 4px;
+
+    .swiper-pagination-bullet {
+      width: 36px;
+      height: 36px;
+      border: 0;
+
+      &::before {
+        width: 9px;
+        height: 9px;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        content: "";
+      }
+    }
+
+    .swiper-pagination-bullet-active::before {
+      background: currentColor;
+    }
+  }
+}
