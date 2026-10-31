@@ -25,3 +25,12 @@ function ct_validate_contact_phone( $result, $tag ) {
 }
 add_filter( 'wpcf7_validate_tel', 'ct_validate_contact_phone', 20, 2 );
 add_filter( 'wpcf7_validate_tel*', 'ct_validate_contact_phone', 20, 2 );
+
+add_filter( 'wpcf7_flamingo_inbound_message_parameters', function ( $args ) {
+	if ( isset( $args['fields']['your-name'], $args['fields']['your-phone'] ) ) {
+		$args['from']       = $args['from_name'];
+		$args['from_email'] = '';
+	}
+
+	return $args;
+} );
