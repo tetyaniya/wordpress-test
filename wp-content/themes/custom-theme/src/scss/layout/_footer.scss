@@ -179,16 +179,39 @@
     }
   }
 
-  &__copyright {
-    margin: 0;
-    padding-top: 24px;
-    border-top: 1px solid rgba(variables.$blue-600, 0.15);
+  &__bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid rgba(variables.$blue-600, 0.2);
     color: variables.$navy-700;
-    font-size: 14px;
+    font-size: 13px;
     overflow-wrap: anywhere;
 
     @include media.media-up("tablet") {
-      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+  }
+
+  &__copyright,
+  &__description {
+    min-width: 0;
+    margin: 0;
+  }
+
+  &__description {
+    color: rgba(variables.$navy-700, 0.8);
+    font-size: 12px;
+    font-style: italic;
+
+    @include media.media-up("tablet") {
+      text-align: right;
     }
   }
 }

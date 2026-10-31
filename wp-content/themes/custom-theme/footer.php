@@ -65,12 +65,18 @@ get_template_part( 'template-parts/sections/popup' );
 			<?php endif; ?>
 
 			<a class="site-footer__button btn" href="<?php echo esc_url( home_url( '/#contacts' ) ); ?>">
-				<?php esc_html_e( 'Залишити заявку', 'custom-theme' ); ?>
+				<?php esc_html_e( 'Submit a request', 'custom-theme' ); ?>
 			</a>
 		</div>
-		<p class="site-footer__copyright">&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?>
-			<?php bloginfo( 'name' ); ?>
-		</p>
+
+		<div class="site-footer__bottom">
+			<p class="site-footer__copyright">&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?>
+				<?php bloginfo( 'name' ); ?>
+			</p>
+			<?php if ( get_bloginfo( 'description' ) ) : ?>
+				<p class="site-footer__description"><?php echo esc_html( get_bloginfo( 'description' ) ); ?></p>
+			<?php endif; ?>
+		</div>
 	</div>
 </footer>
 

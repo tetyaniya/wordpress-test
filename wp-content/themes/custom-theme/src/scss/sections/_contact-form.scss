@@ -70,7 +70,6 @@
   .contact-form__submit {
     justify-self: start;
     width: 100%;
-    @include mixins.animate(background-color border-color);
 
     @include media.media-up("tablet") {
       width: auto;

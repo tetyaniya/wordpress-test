@@ -144,5 +144,5 @@ $animation-speed: 0.3s;
 $animation-easing-base: ease-in-out;
 
 // Shared interactive states.
-$btn-hover-background: $blue-700;
-$btn-hover-color: $white;
+$btn-hover-background: $btn-color;
+$btn-hover-color: $btn-background;

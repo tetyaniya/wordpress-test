@@ -1,7 +1,10 @@
 @use "../base/variables";
+@use "../base/mixins";
 
 .btn, .btn-base, .btn-outline, .wpcf7-submit,
 input[type="submit"], button[type="submit"], .wp-block-button__link {
+  @include mixins.animate(background-color color border-color);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -23,11 +26,21 @@ input[type="submit"], button[type="submit"], .wp-block-button__link {
   overflow-wrap: anywhere;
   cursor: pointer;
 
-  &:hover:not(:disabled):not([aria-disabled="true"]) {
+  &:hover:not(:disabled):not([aria-disabled="true"]),
+  &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
     background: variables.$btn-hover-background;
-    border-color: variables.$btn-hover-background;
+    border-color: variables.$btn-background;
     color: variables.$btn-hover-color;
     text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid variables.$btn-background;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 
   &:disabled, &[aria-disabled="true"] {
@@ -38,6 +51,12 @@ input[type="submit"], button[type="submit"], .wp-block-button__link {
 
 .btn-outline {
   background: transparent;
-  color: variables.$body-color;
+  color: variables.$btn-background;
   border-color: currentColor;
+
+  &:hover:not(:disabled):not([aria-disabled="true"]),
+  &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    background: variables.$btn-background;
+    color: variables.$btn-color;
+  }
 }
