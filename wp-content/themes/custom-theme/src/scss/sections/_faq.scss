@@ -3,6 +3,10 @@
 @use "../base/media";
 
 .faq {
+  @include media.media-up("desktop") {
+    padding: 64px 0 96px;
+  }
+
   &__list {
     border-bottom: 1px solid rgba(variables.$blue-600, 0.2);
   }

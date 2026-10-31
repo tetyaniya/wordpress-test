@@ -8,30 +8,39 @@
 defined( 'ABSPATH' ) || exit;
 
 $hero = $args['hero'] ?? array();
+
 if ( empty( $hero ) ) {
 	return;
 }
+
 $has_slider = count( $hero['gallery'] ) > 1;
 $title_id = wp_unique_id( 'hero-title-' );
+
 ?>
+
 <section class="section hero"<?php if ( '' !== $hero['title'] ) : ?> aria-labelledby="<?php echo esc_attr( $title_id ); ?>"<?php endif; ?>>
 	<div class="container hero__content">
+
 		<?php if ( '' !== $hero['title'] ) : ?>
 			<h1 class="hero-title" id="<?php echo esc_attr( $title_id ); ?>">
 				<?php echo esc_html( $hero['title'] ); ?>
 			</h1>
 		<?php endif; ?>
+
 		<?php if ( '' !== $hero['subtitle'] ) : ?>
 			<p class="hero__subtitle">
 				<?php echo nl2br( esc_html( $hero['subtitle'] ) ); ?>
 			</p>
 		<?php endif; ?>
+
 		<?php if ( '' !== $hero['button_text'] && '' !== $hero['button_url'] ) : ?>
 			<a class="hero__button btn" href="<?php echo esc_url( $hero['button_url'] ); ?>">
 				<?php echo esc_html( $hero['button_text'] ); ?>
 			</a>
 		<?php endif; ?>
+
 	</div>
+
 		<?php if ( ! empty( $hero['gallery'] ) ) : ?>
 			<div class="hero__gallery<?php echo $has_slider ? ' swiper' : ''; ?>"<?php if ( $has_slider ) : ?> data-hero-slider role="region" aria-label="<?php esc_attr_e( 'Hero image gallery', 'custom-theme' ); ?>" data-pagination-label="<?php esc_attr_e( 'Go to image {{index}}', 'custom-theme' ); ?>"<?php endif; ?>>
 				<div class="<?php echo $has_slider ? 'swiper-wrapper' : 'hero__single'; ?>">
@@ -41,6 +50,7 @@ $title_id = wp_unique_id( 'hero-title-' );
 						</div>
 					<?php endforeach; ?>
 				</div>
+
 				<?php if ( $has_slider ) : ?>
 					<div class="hero__controls">
 						<div class="hero__pagination"></div>

@@ -74,7 +74,6 @@
 
   &__previous,
   &__next,
-  &__autoplay,
   &__pagination .swiper-pagination-bullet {
     display: inline-grid;
     place-items: center;
@@ -150,7 +149,7 @@
     flex-wrap: wrap;
     justify-content: center;
     min-width: 0;
-    padding: 12px 52px 4px;
+    padding: 12px 4px 4px;
 
     .swiper-pagination-bullet {
       width: 36px;
@@ -169,12 +168,5 @@
     .swiper-pagination-bullet-active::before {
       background: currentColor;
     }
-  }
-
-  &__autoplay {
-    grid-area: 2 / 1;
-    align-self: center;
-    justify-self: end;
-    margin: 8px 4px 0;
   }
 }

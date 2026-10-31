@@ -1,1 +1,82 @@
-// Add popup section styles here.
+@use "../base/variables";
+@use "../base/media";
+
+.popup {
+  position: fixed;
+  z-index: 1000;
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: 16px;
+  display: grid;
+  gap: 12px;
+  width: auto;
+  max-height: calc(100dvh - 32px);
+  margin: 0;
+  padding: 24px 56px 24px 24px;
+  overflow-y: auto;
+  border: 0;
+  border-radius: 16px;
+  background: variables.$blue-100;
+  color: variables.$navy-700;
+  box-shadow: 0 4px 32px rgba(variables.$navy-900, 0.2);
+
+  @include media.media-up("tablet") {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 32px;
+    padding: 24px 72px 24px 32px;
+  }
+
+  p {
+    margin: 0;
+
+    @include media.media-up("tablet") {
+      grid-column: 1;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: variables.$navy-900;
+    font-size: 32px;
+    cursor: pointer;
+
+    &:hover {
+      background: variables.$white;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 22px;
+
+    @include media.media-up("tablet") {
+      font-size: 24px;
+    }
+  }
+
+  &__button {
+    width: 100%;
+
+    @include media.media-up("tablet") {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+      width: auto;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid variables.$blue-700;
+    outline-offset: 4px;
+  }
+}

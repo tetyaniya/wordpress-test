@@ -17,12 +17,15 @@ $ct_faqs = new WP_Query(
 if ( ! $ct_faqs->have_posts() ) {
 	return;
 }
+
 ?>
+
 <section id="faqs" class="section faq" aria-labelledby="faq-title">
 	<div class="container">
 		<h2 id="faq-title">
 			<?php esc_html_e( 'FAQs', 'custom-theme' ); ?>
 		</h2>
+
 		<div class="faq__list js-faq-accordion">
 			<?php while ( $ct_faqs->have_posts() ) : ?>
 				<?php $ct_faqs->the_post(); ?>

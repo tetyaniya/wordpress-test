@@ -9,10 +9,8 @@ export default function initAboutSlider() {
     const previous = gallery.querySelector('.about-section__previous');
     const next = gallery.querySelector('.about-section__next');
     const pagination = gallery.querySelector('.about-section__pagination');
-    const toggle = gallery.querySelector('.about-section__autoplay');
-    if (!previous || !next || !pagination || !toggle) return;
+    if (!previous || !next || !pagination) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let paused = reducedMotion.matches;
 
     const slider = new Swiper(gallery, {
       modules: [Navigation, Pagination, A11y, Autoplay],
@@ -20,7 +18,7 @@ export default function initAboutSlider() {
       rewind: true,
       speed: reducedMotion.matches ? 0 : 600,
       autoplay: {
-        enabled: !paused,
+        enabled: !reducedMotion.matches,
         delay: 5000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
@@ -46,22 +44,8 @@ export default function initAboutSlider() {
       },
     });
 
-    const updateToggle = () => {
-      toggle.setAttribute('aria-label', toggle.dataset[paused ? 'playLabel' : 'pauseLabel']);
-      toggle.firstElementChild.textContent = paused ? '▶' : 'Ⅱ';
-    };
-
     gallery.addEventListener('focusin', () => {
-      paused = true;
       slider.autoplay.stop();
-      updateToggle();
-    });
-
-    toggle.addEventListener('click', () => {
-      paused = !paused;
-      if (paused) slider.autoplay.stop();
-      else slider.autoplay.start();
-      updateToggle();
     });
 
     // Keep arrow keys local to this gallery, including pages with multiple sliders.
@@ -77,11 +61,8 @@ export default function initAboutSlider() {
     reducedMotion.addEventListener('change', () => {
       slider.params.speed = reducedMotion.matches ? 0 : 600;
       if (reducedMotion.matches) {
-        paused = true;
         slider.autoplay.stop();
-        updateToggle();
       }
     });
-    updateToggle();
   });
 }

@@ -20,7 +20,7 @@ function ct_register_post_types(): void {
 			),
 			'public'             => false,
 			'show_ui'            => true,
-			'show_in_rest'       => true,
+			'show_in_rest'       => false,
 			'publicly_queryable' => false,
 			'rewrite'            => false,
 			'query_var'          => false,
@@ -28,30 +28,11 @@ function ct_register_post_types(): void {
 			'supports'           => array( 'title', 'editor', 'page-attributes' ),
 		)
 	);
-	register_post_type(
-		'project',
-		array(
-			'labels'             => array(
-				'name'          => __( 'Projects', 'custom-theme' ),
-				'singular_name' => __( 'Project', 'custom-theme' ),
-				'add_new_item'  => __( 'Add project', 'custom-theme' ),
-				'edit_item'     => __( 'Edit project', 'custom-theme' ),
-			),
-			'public'             => false,
-			'show_ui'            => true,
-			'show_in_rest'       => true,
-			'publicly_queryable' => false,
-			'rewrite'            => false,
-			'query_var'          => false,
-			'menu_icon'          => 'dashicons-portfolio',
-			'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes' ),
-		)
-	);
 }
 add_action( 'init', 'ct_register_post_types' );
 
 /** Use the classic editor for FAQ answers. */
-function ct_faq_use_block_editor( bool $use_block_editor, string $post_type ): bool {
-	return 'faq' === $post_type ? false : $use_block_editor;
-}
-add_filter( 'use_block_editor_for_post_type', 'ct_faq_use_block_editor', 10, 2 );
+// function ct_faq_use_block_editor( bool $use_block_editor, string $post_type ): bool {
+// 	return 'faq' === $post_type ? false : $use_block_editor;
+// }
+// add_filter( 'use_block_editor_for_post_type', 'ct_faq_use_block_editor', 10, 2 );
