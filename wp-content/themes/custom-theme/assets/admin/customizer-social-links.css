@@ -1,0 +1,12 @@
+.ct-social-row {
+	margin: 0 0 16px;
+	padding: 12px;
+	border: 1px solid #c3c4c7;
+	background: #fff;
+}
+.ct-social-heading { font-weight: 600; }
+.ct-social-row label { display: block; margin-bottom: 10px; }
+.ct-social-icon-label { display: block; margin-bottom: 6px; }
+.ct-social-icon { display: block; max-width: 80px; max-height: 80px; margin-bottom: 8px; }
+.ct-social-icon[hidden] { display: none; }
+.ct-social-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }

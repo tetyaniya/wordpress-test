@@ -25,7 +25,57 @@ function ct_homepage_section_tabs(): array {
 			'render'   => 'ct_render_about_fields',
 			'sanitize' => 'ct_sanitize_about',
 		),
+		'contacts' => array(
+			'label'    => __( 'Contacts', 'custom-theme' ),
+			'render'   => 'ct_render_contacts_fields',
+			'sanitize' => 'ct_sanitize_contacts',
+		),
 	);
+}
+
+/** Keep a Google Maps embed and let the theme control its presentation. */
+function ct_sanitize_contacts( array $data ): array {
+	$contacts = array(
+		'title' => isset( $data['title'] ) && is_string( $data['title'] ) ? sanitize_text_field( $data['title'] ) : '',
+		'map'   => '',
+	);
+	if ( empty( $data['map'] ) || ! is_string( $data['map'] ) ) {
+		return $contacts;
+	}
+	$html = new WP_HTML_Tag_Processor( $data['map'] );
+	if ( ! $html->next_tag( 'iframe' ) ) {
+		return $contacts;
+	}
+	$src = $html->get_attribute( 'src' );
+	$url = is_string( $src ) ? wp_parse_url( $src ) : false;
+	if ( ! $url || 'https' !== ( $url['scheme'] ?? '' ) || ! in_array( strtolower( $url['host'] ?? '' ), array( 'google.com', 'www.google.com', 'maps.google.com' ), true ) || ! preg_match( '#^/maps/embed(?:/|$)#', $url['path'] ?? '' ) || isset( $url['user'] ) || isset( $url['pass'] ) || isset( $url['port'] ) ) {
+		return $contacts;
+	}
+	$contacts['map'] = sprintf(
+		'<iframe src="%s" title="%s" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>',
+		esc_url( $src ),
+		esc_attr__( 'Location on Google Maps', 'custom-theme' )
+	);
+	return $contacts;
+}
+
+/** Render Contacts in the shared Homepage Sections meta box. */
+function ct_render_contacts_fields( WP_Post $post ): void {
+	$stored   = get_post_meta( $post->ID, '_ct_homepage_contacts', true );
+	$contacts = ct_sanitize_contacts( is_array( $stored ) ? $stored : array() );
+	?>
+	<p><?php esc_html_e( 'Shortcode:', 'custom-theme' ); ?> <code>[theme_contacts]</code> <button type="button" class="button ct-copy-shortcode" data-shortcode="[theme_contacts]"><?php esc_html_e( 'Copy shortcode', 'custom-theme' ); ?></button> <span class="ct-copy-status" role="status"></span></p>
+	<p class="description"><?php esc_html_e( 'Phone, email, address and social links are taken from Customizer → Contact Details.', 'custom-theme' ); ?></p>
+	<p>
+		<label for="ct-contacts-title"><?php esc_html_e( 'Title', 'custom-theme' ); ?></label>
+		<input class="widefat" type="text" id="ct-contacts-title" name="ct_homepage_sections[contacts][title]" value="<?php echo esc_attr( $contacts['title'] ); ?>">
+	</p>
+	<p>
+		<label for="ct-contacts-map"><?php esc_html_e( 'Map embed code', 'custom-theme' ); ?></label>
+		<textarea class="widefat code" rows="6" id="ct-contacts-map" name="ct_homepage_sections[contacts][map]" aria-describedby="ct-contacts-map-help"><?php echo esc_textarea( $contacts['map'] ); ?></textarea>
+	</p>
+	<p class="description" id="ct-contacts-map-help"><?php esc_html_e( 'In Google Maps on a computer, choose Share → Embed a map → Copy HTML and paste the full iframe here. A sharing link will not work. Only HTTPS Google Maps embed iframes are saved; their size is controlled by the theme. Leave empty to hide the map.', 'custom-theme' ); ?></p>
+	<?php
 }
 
 /** Keep valid image attachment IDs in their selected order. */
@@ -265,3 +315,26 @@ function ct_about_shortcode(): string {
 	return (string) ob_get_clean();
 }
 add_shortcode( 'theme_about', 'ct_about_shortcode' );
+
+/** Render shared contact details and the homepage map at the shortcode position. */
+function ct_contacts_shortcode(): string {
+	$post_id = (int) get_option( 'page_on_front' );
+	if ( ! ct_is_homepage( $post_id ) ) {
+		return '';
+	}
+	$stored   = get_post_meta( $post_id, '_ct_homepage_contacts', true );
+	$contacts = ct_sanitize_contacts( is_array( $stored ) ? $stored : array() );
+	$contacts['phone']   = ct_get_phone();
+	$contacts['email']   = ct_get_email();
+	$contacts['address'] = ct_get_address();
+	$contacts['social']  = array_values( array_filter( ct_get_social_links(), static function ( $link ) {
+		return '' !== $link['url'] && ( '' !== $link['title'] || $link['icon'] );
+	} ) );
+	if ( '' === $contacts['title'] && '' === $contacts['map'] && '' === $contacts['phone'] && '' === $contacts['email'] && '' === $contacts['address'] && empty( $contacts['social'] ) ) {
+		return '';
+	}
+	ob_start();
+	get_template_part( 'template-parts/sections/contacts', null, array( 'contacts' => $contacts ) );
+	return (string) ob_get_clean();
+}
+add_shortcode( 'theme_contacts', 'ct_contacts_shortcode' );

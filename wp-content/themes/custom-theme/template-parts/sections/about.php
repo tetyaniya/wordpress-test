@@ -43,6 +43,7 @@ $title_id    = wp_unique_id( 'about-title-' );
 					<div class="about-section__controls">
 						<button class="about-section__previous" type="button" aria-label="<?php esc_attr_e( 'Previous image', 'custom-theme' ); ?>"><span aria-hidden="true"></span></button>
 						<div class="about-section__pagination"></div>
+						<button class="about-section__autoplay" type="button" aria-label="<?php esc_attr_e( 'Pause slideshow', 'custom-theme' ); ?>" data-play-label="<?php esc_attr_e( 'Play slideshow', 'custom-theme' ); ?>" data-pause-label="<?php esc_attr_e( 'Pause slideshow', 'custom-theme' ); ?>"><span aria-hidden="true">Ⅱ</span></button>
 						<button class="about-section__next" type="button" aria-label="<?php esc_attr_e( 'Next image', 'custom-theme' ); ?>"><span aria-hidden="true"></span></button>
 					</div>
 				<?php endif; ?>

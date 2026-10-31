@@ -1,1 +1,147 @@
-// Add contacts section styles here.
+@use "../base/variables";
+@use "../base/media";
+@use "../base/mixins";
+
+.contacts-section {
+  &__inner {
+    display: grid;
+    gap: 32px;
+
+    &--columns {
+      @include media.media-up("desktop") {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: 48px;
+      }
+    }
+  }
+
+  &__details {
+    min-width: 0;
+    align-self: center;
+    overflow-wrap: anywhere;
+  }
+
+  &__address {
+    display: grid;
+    gap: 24px;
+    font-style: normal;
+  }
+
+  &__item {
+    display: grid;
+    gap: 8px;
+    justify-items: start;
+
+    a {
+      max-width: 100%;
+      padding-block: 8px;
+      font-size: 18px;
+
+      @include media.media-up("desktop") {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__label {
+    color: variables.$navy-900;
+    font-weight: 600;
+    font-size: 18px;
+
+    @include media.media-up("desktop") {
+      font-size: 21px;
+    }
+  }
+
+  & &__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0;
+    margin: 24px 0 0;
+    list-style: none;
+
+    li {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    a {
+      @include mixins.animate(transform);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 56px;
+      padding: 6px 2px;
+
+      &::before {
+        content: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__social-icon {
+    display: block;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  a {
+    position: relative;
+    text-decoration: none;
+
+    &::before {
+      @include mixins.animate(width);
+
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+    }
+
+    &:hover::before,
+    &:focus-visible::before {
+      width: 100%;
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$blue-700;
+      outline-offset: 4px;
+    }
+  }
+
+  &__map {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: 360px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 8px;
+    background: variables.$blue-100;
+
+    @include media.media-up("desktop") {
+      min-height: 520px;
+    }
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+}
