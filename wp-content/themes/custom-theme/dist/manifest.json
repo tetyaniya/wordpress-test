@@ -1,6 +1,6 @@
 {
   "src/ts/main.ts": {
-    "file": "assets/main-W9Szasou.js",
+    "file": "assets/main-M9_XN_Vh.js",
     "name": "main",
     "src": "src/ts/main.ts",
     "isEntry": true,
@@ -8,7 +8,7 @@
       "src/ts/modules/contact-form.js"
     ],
     "css": [
-      "assets/main-BAAmzrNu.css"
+      "assets/main-BRik0N1L.css"
     ]
   },
   "src/ts/modules/contact-form.js": {
