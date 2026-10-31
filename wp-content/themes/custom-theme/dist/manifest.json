@@ -1,11 +1,20 @@
 {
   "src/ts/main.ts": {
-    "file": "assets/main-O58nkPSF.js",
+    "file": "assets/main-W9Szasou.js",
     "name": "main",
     "src": "src/ts/main.ts",
     "isEntry": true,
+    "dynamicImports": [
+      "src/ts/modules/contact-form.js"
+    ],
     "css": [
-      "assets/main-wFzceN3_.css"
+      "assets/main-BAAmzrNu.css"
     ]
+  },
+  "src/ts/modules/contact-form.js": {
+    "file": "assets/contact-form-CEZ3jlWZ.js",
+    "name": "contact-form",
+    "src": "src/ts/modules/contact-form.js",
+    "isDynamicEntry": true
   }
 }

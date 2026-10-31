@@ -9,5 +9,6 @@ initHeaderMenu();
 initFaqAccordion();
 initHeroSlider();
 initAboutSlider();
+import('./modules/contact-form.js').then(({ default: initContactForm }) => initContactForm());
 
 // Import section/component modules here when implementing their behaviour.
