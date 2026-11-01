@@ -66,10 +66,6 @@ function ct_homepage_schema_graph( array $graph ): array {
 	$owner_key = null;
 	foreach ( $graph as $key => $node ) {
 		$types = (array) ( $node['@type'] ?? array() );
-		if ( in_array( 'BreadcrumbList', $types, true ) ) {
-			unset( $graph[ $key ] );
-			continue;
-		}
 		if ( array_intersect( array( 'Organization', 'LocalBusiness' ), $types ) ) {
 			if ( null === $owner_key ) {
 				$owner_key = $key;
@@ -89,7 +85,6 @@ function ct_homepage_schema_graph( array $graph ): array {
 			}
 		}
 		if ( array_intersect( array( 'WebPage', 'FAQPage' ), $types ) ) {
-			unset( $graph[ $key ]['breadcrumb'] );
 			if ( null === $page_key || in_array( 'FAQPage', $types, true ) ) {
 				$page_key = $key;
 			}
