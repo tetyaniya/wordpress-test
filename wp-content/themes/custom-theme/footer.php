@@ -64,7 +64,7 @@ get_template_part( 'template-parts/sections/popup' );
 				</a>
 			<?php endif; ?>
 
-			<a class="site-footer__button btn" href="<?php echo esc_url( home_url( '/#contacts' ) ); ?>">
+			<a class="site-footer__button btn" href="<?php echo esc_url( home_url( '/#contact-form' ) ); ?>">
 				<?php esc_html_e( 'Submit a request', 'custom-theme' ); ?>
 			</a>
 		</div>
