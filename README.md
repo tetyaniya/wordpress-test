@@ -1,2 +1,80 @@
-# wordpress-test
-Custom WordPress theme with responsive design, interactive components, and SEO optimization.
+# Custom Theme
+
+Класична модульна WordPress-тема для розробки адаптивних сайтів.
+
+Використовує стандартні WordPress API, Gutenberg і Customizer. Не залежить від ACF та сторонніх page builders.
+
+## Технології
+
+- PHP, HTML5, SCSS, JavaScript (ES6+)
+- Vite — збірка CSS та JavaScript
+- Swiper — слайдери
+- IMask — маска введення телефону
+- Gutenberg, WordPress Customizer, Custom Post Types
+- Contact Form 7, Flamingo — інтеграція контактної форми
+- AIOSEO Lite — інтеграція структурованих даних
+
+## Архітектура
+
+- `inc/` — функціонал теми, налаштування WordPress, CPT та інтеграції.
+- `template-parts/sections/` — PHP-шаблони секцій.
+- `src/` — вихідні SCSS та JavaScript.
+- `dist/` — скомпільовані ресурси.
+- `front-page.php` — структура та порядок секцій головної сторінки.
+- `functions.php` — підключення модулів теми.
+
+Власні PHP-функції мають префікс `ct_`. Для перекладів використовується text domain `custom-theme`.
+
+## Керування контентом
+
+- **Homepage Sections** — налаштування секцій головної сторінки.
+- **Gutenberg** — редагування контенту стандартними блоками.
+- **Customizer → Contact Details** — контактна інформація та соціальні посилання.
+- **FAQ** — окремий CPT із класичним редактором.
+
+Контактні дані з Customizer можуть повторно використовуватися в різних компонентах.
+
+## Фронтенд
+
+JavaScript організований у модулі ES6+. SCSS розділений на базові стилі, компоненти, макети та секції.
+
+Реалізовано адаптивну верстку, семантичний HTML та базові практики доступності.
+
+- Hero — слайдер на Swiper.
+- Popup — інформаційний банер на основі HTML <aside> з відкладеним показом і збереженням стану в `localStorage`.
+- Contact Form — інтеграція з Contact Form 7, серверна валідація номера та власна JavaScript-подія `successfulSending`.
+
+## Локальна розробка
+
+Для локального середовища використовується DDEV. Команди npm виконуються з каталогу теми на хості або у WSL.
+
+```bash
+npm ci
+npm run dev
+```
+
+Для production-збірки:
+
+```bash
+npm run build
+```
+
+Vite формує скомпільовані CSS та JavaScript у `dist/`. Готову збірку необхідно переносити разом із темою.
+
+На production-сервері Node.js і запуск Vite не потрібні.
+
+## SEO та Schema.org
+
+Тема містить реалізацію структурованих даних Schema.org у `inc/schema.php`.
+
+Інтеграція з AIOSEO здійснюється через фільтр `aioseo_schema_output` і використовується за наявності активного плагіна.
+
+## Розширення
+
+- Нові PHP-модулі додаються в `inc/` та підключаються через `functions.php`.
+- Секції створюються в `template-parts/sections/`.
+- Стилі компонентів додаються в окремі SCSS-файли.
+- JavaScript-функціонал організовується в незалежні модулі.
+- Контент і конфігурація окремих проєктів налаштовуються через WordPress.
+
+Тема може використовуватися як основа для подальшої розробки та адаптації під конкретні проєкти.
